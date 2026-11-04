@@ -1,9 +1,12 @@
 ---
 layout: default
 ---
+{% assign L = page.lang | default: "en" %}
+{% assign t = site.data.i18n[L] %}
+{% if L == "ru" %}{% assign home = "/ru/" %}{% else %}{% assign home = "/" %}{% endif %}
 <div class="wrap">
   <article class="article">
-    <a class="back" href="{{ "/" | relative_url }}#blog">← Все записи</a>
+    <a class="back" href="{{ home | relative_url }}#blog">{{ t.back }}</a>
     {% if page.tags.size > 0 %}
       <ul class="tags">{% for tag in page.tags %}<li>{{ tag }}</li>{% endfor %}</ul>
     {% endif %}

@@ -1,0 +1,93 @@
+{% assign L = page.lang | default: "en" %}
+{% assign t = site.data.i18n[L] %}
+{% assign posts = site.posts | where: "lang", L %}
+<div class="wrap">
+  <section class="hero">
+    <span class="eyebrow">gmancode</span>
+    <h1>{{ t.hero_title }}</h1>
+    <p>{{ t.hero_text }}</p>
+    <div class="actions">
+      <a class="btn btn--primary" href="#projects">{{ t.btn_projects }}</a>
+      <a class="btn" href="https://github.com/gmancode">{{ t.btn_github }}</a>
+    </div>
+  </section>
+
+  <section class="section" id="projects">
+    <div class="section__head"><h2>{{ t.sec_projects }}</h2><span>{{ t.sec_projects_tag }}</span></div>
+    <div class="card project">
+      <img class="project__logo" src="{{ "/assets/airhome.png" | relative_url }}" alt="airhome" width="84" height="84">
+      <div>
+        <h3>airhome</h3>
+        <p>{{ t.airhome_desc }}</p>
+        <ul class="tags"><li>Rust</li><li>Windows</li><li>AirPlay 2</li><li>GPL-3.0</li></ul>
+        <div class="links">
+          <a href="https://github.com/gmancode/airhome">{{ t.link_src }}</a>
+          <a href="https://github.com/gmancode/airhome/releases/latest">{{ t.link_dl }}</a>
+        </div>
+      </div>
+    </div>
+    <div class="stats">
+      <div><b>{{ t.stat_1_v }}</b><span>{{ t.stat_1_l }}</span></div>
+      <div><b>{{ t.stat_2_v }}</b><span>{{ t.stat_2_l }}</span></div>
+      <div><b>{{ t.stat_3_v }}</b><span>{{ t.stat_3_l }}</span></div>
+      <div><b>{{ t.stat_4_v }}</b><span>{{ t.stat_4_l }}</span></div>
+    </div>
+  </section>
+
+  <section class="section" id="features">
+    <div class="section__head"><h2>{{ t.sec_features }}</h2><span>{{ t.sec_features_tag }}</span></div>
+    <div class="features">
+      {% for f in t.feats %}
+        <div class="card feature">
+          <span class="feature__n">{{ forloop.index }}</span>
+          <h3>{{ f.t }}</h3>
+          <p>{{ f.d }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section class="section" id="shots">
+    <div class="section__head"><h2>{{ t.sec_shots }}</h2><span>{{ t.sec_shots_tag }}</span></div>
+    <div class="shots">
+      <img src="{{ "/assets/img/" | append: L | append: "-main.png" | relative_url }}" alt="{{ t.shot_main }}" loading="lazy">
+      <img src="{{ "/assets/img/" | append: L | append: "-settings.png" | relative_url }}" alt="{{ t.shot_settings }}" loading="lazy">
+    </div>
+  </section>
+
+  <section class="section" id="blog">
+    <div class="section__head"><h2>{{ t.sec_blog }}</h2><span>{{ t.sec_blog_tag }}</span></div>
+    <ul class="post-list">
+      {% for post in posts %}
+        <li class="card post-card">
+          {% if post.tags.size > 0 %}
+            <ul class="tags">{% for tag in post.tags %}<li>{{ tag }}</li>{% endfor %}</ul>
+          {% endif %}
+          <h3 class="post-card__title"><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
+          <div class="post-meta">{{ post.date | date: "%d.%m.%Y" }}</div>
+          <p>{{ post.summary }}</p>
+          <a class="read-more" href="{{ post.url | relative_url }}">{{ t.read_more }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+  </section>
+
+  <section class="section" id="about">
+    <div class="two">
+      <div class="card">
+        <h3>{{ t.sec_about }}</h3>
+        <p>{{ t.about_text }}</p>
+        <p class="skills-label">{{ t.skills_label }}</p>
+        <ul class="tags">{% for s in t.skills %}<li>{{ s }}</li>{% endfor %}</ul>
+      </div>
+      <div class="card" id="contact">
+        <h3>{{ t.sec_contact }}</h3>
+        <p>{{ t.contact_text }}</p>
+        <div class="actions actions--tight">
+          <a class="btn" href="https://github.com/gmancode">{{ t.contact_btn1 }}</a>
+          <a class="btn" href="https://github.com/gmancode/airhome/issues">{{ t.contact_btn2 }}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

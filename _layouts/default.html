@@ -1,24 +1,41 @@
+{% assign L = page.lang | default: "en" %}
+{% assign t = site.data.i18n[L] %}
+{% if L == "ru" %}{% assign home = "/ru/" %}{% else %}{% assign home = "/" %}{% endif %}
+{% assign alt_url = "" %}
+{% if page.layout == "post" %}
+  {% assign alt = site.posts | where: "ref", page.ref | where_exp: "p", "p.lang != page.lang" | first %}
+  {% if alt %}{% assign alt_url = alt.url %}{% endif %}
+{% endif %}
+{% if alt_url == "" %}{% if L == "ru" %}{% assign alt_url = "/" %}{% else %}{% assign alt_url = "/ru/" %}{% endif %}{% endif %}
+{% if L == "ru" %}{% assign en_url = alt_url %}{% assign ru_url = page.url %}{% else %}{% assign en_url = page.url %}{% assign ru_url = alt_url %}{% endif %}
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="{{ L }}">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{% if page.title and page.url != "/" %}{{ page.title }} — {% endif %}{{ site.title }}</title>
-  <meta name="description" content="{{ page.description | default: site.description }}">
+  <title>{% if page.layout == "post" %}{{ page.title }} — {% endif %}{{ site.title }}</title>
+  <meta name="description" content="{{ page.summary | default: t.site_desc }}">
   <meta name="theme-color" content="#0e0d0c">
-  <meta property="og:title" content="{{ page.title | default: site.title }}">
-  <meta property="og:description" content="{{ page.description | default: site.description }}">
+  <meta property="og:title" content="{% if page.layout == "post" %}{{ page.title }}{% else %}{{ site.title }}{% endif %}">
+  <meta property="og:description" content="{{ page.summary | default: t.site_desc }}">
+  <link rel="alternate" hreflang="en" href="{{ en_url | absolute_url }}">
+  <link rel="alternate" hreflang="ru" href="{{ ru_url | absolute_url }}">
   <link rel="icon" type="image/svg+xml" href="{{ "/assets/favicon.svg" | relative_url }}">
   <link rel="stylesheet" href="{{ "/assets/style.css" | relative_url }}">
 </head>
 <body>
   <header class="site-header">
     <div class="wrap">
-      <a class="brand" href="{{ "/" | relative_url }}"><span class="brand__dot"></span>{{ site.title }}</a>
-      <nav class="nav" aria-label="Разделы">
-        <a href="{{ "/" | relative_url }}#projects">Проекты</a>
-        <a href="{{ "/" | relative_url }}#blog">Блог</a>
-        <a href="{{ "/" | relative_url }}#contact">Контакты</a>
+      <a class="brand" href="{{ home | relative_url }}"><span class="brand__dot"></span>{{ site.title }}</a>
+      <nav class="nav" aria-label="Sections">
+        <a href="{{ home | relative_url }}#projects">{{ t.nav_projects }}</a>
+        <a href="{{ home | relative_url }}#blog">{{ t.nav_blog }}</a>
+        <a href="{{ home | relative_url }}#about">{{ t.nav_about }}</a>
+        <a href="{{ home | relative_url }}#contact">{{ t.nav_contact }}</a>
+        <span class="lang" role="group" aria-label="Language">
+          <a href="{{ en_url | relative_url }}" hreflang="en" lang="en"{% if L == "en" %} class="is-active" aria-current="true"{% endif %}>EN</a>
+          <a href="{{ ru_url | relative_url }}" hreflang="ru" lang="ru"{% if L == "ru" %} class="is-active" aria-current="true"{% endif %}>RU</a>
+        </span>
       </nav>
     </div>
   </header>
@@ -30,7 +47,7 @@
   <footer class="site-footer">
     <div class="wrap">
       <span>© {{ site.time | date: "%Y" }} {{ site.title }}</span>
-      <span>Сделано на Jekyll · хостинг GitHub Pages</span>
+      <span>{{ t.footer_built }}</span>
     </div>
   </footer>
 </body>

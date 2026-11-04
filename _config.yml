@@ -1,8 +1,9 @@
 title: gmancode
-description: Небольшие инструменты с открытым кодом и заметки о том, как они сделаны.
+description: Small open-source tools and notes on how they are made.
 url: https://gmancode.github.io
 baseurl: ""
-lang: ru
+lang: en
+future: true
 theme: null
 plugins: []
 exclude:

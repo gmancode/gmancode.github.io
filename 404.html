@@ -1,14 +1,18 @@
 ---
 layout: default
-title: Страница не найдена
+lang: en
+title: Page not found
 permalink: /404.html
 ---
 
 <div class="wrap">
   <section class="hero">
     <span class="eyebrow">404</span>
-    <h1>Такой страницы <span class="accent">нет</span></h1>
-    <p>Возможно, ссылка устарела или в адресе опечатка.</p>
-    <div class="actions"><a class="btn btn--primary" href="{{ "/" | relative_url }}">На главную</a></div>
+    <h1>This page <span class="accent">does not exist</span></h1>
+    <p>The link may be outdated or the address has a typo. / Такой страницы нет: возможно, ссылка устарела.</p>
+    <div class="actions">
+      <a class="btn btn--primary" href="{{ "/" | relative_url }}">Home</a>
+      <a class="btn" href="{{ "/ru/" | relative_url }}">На главную</a>
+    </div>
   </section>
 </div>
