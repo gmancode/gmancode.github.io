@@ -3,75 +3,35 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{{ page.title | default: site.title }}</title>
+  <title>{% if page.title and page.url != "/" %}{{ page.title }} — {% endif %}{{ site.title }}</title>
+  <meta name="description" content="{{ page.description | default: site.description }}">
+  <meta name="theme-color" content="#0e0d0c">
+  <meta property="og:title" content="{{ page.title | default: site.title }}">
+  <meta property="og:description" content="{{ page.description | default: site.description }}">
+  <link rel="icon" type="image/svg+xml" href="{{ "/assets/favicon.svg" | relative_url }}">
   <link rel="stylesheet" href="{{ "/assets/style.css" | relative_url }}">
 </head>
-
 <body>
   <header class="site-header">
-    <div class="site-header__inner">
-      <a class="brand" href="{{ "/" | relative_url }}">
-        <span class="brand__mark">Б</span>
-        Мой блог
-      </a>
-
-      <div class="nav-actions">
-        <button class="theme-toggle" id="theme-toggle" type="button"
-                title="Переключить тему" aria-label="Переключить тему">
-          <span id="theme-icon">🌙</span>
-        </button>
-      </div>
+    <div class="wrap">
+      <a class="brand" href="{{ "/" | relative_url }}"><span class="brand__dot"></span>{{ site.title }}</a>
+      <nav class="nav" aria-label="Разделы">
+        <a href="{{ "/" | relative_url }}#projects">Проекты</a>
+        <a href="{{ "/" | relative_url }}#blog">Блог</a>
+        <a href="{{ "/" | relative_url }}#contact">Контакты</a>
+      </nav>
     </div>
   </header>
 
-  <div class="page">
-    <main id="content">
-      {{ content }}
-    </main>
-
-    <aside id="sidebar">
-      <div class="card sidebar-card">
-        <span class="sidebar-badge">✦ О блоге</span>
-        <h2>Мой блог</h2>
-        <p>Заметки, статьи и мысли — обновляется регулярно.</p>
-      </div>
-    </aside>
-  </div>
+  <main>
+    {{ content }}
+  </main>
 
   <footer class="site-footer">
-    © {{ site.time | date: "%Y" }} Мой блог.
+    <div class="wrap">
+      <span>© {{ site.time | date: "%Y" }} {{ site.title }}</span>
+      <span>Сделано на Jekyll · хостинг GitHub Pages</span>
+    </div>
   </footer>
-
-  <script>
-    (function () {
-      var saved = localStorage.getItem('theme');
-      if (saved) document.documentElement.setAttribute('data-theme', saved);
-
-      var btn = document.getElementById('theme-toggle');
-      var icon = document.getElementById('theme-icon');
-      var root = document.documentElement;
-
-      function currentTheme() {
-        var attr = root.getAttribute('data-theme');
-        if (attr === 'dark' || attr === 'light') return attr;
-        return window.matchMedia('(prefers-color-scheme: dark)').matches
-          ? 'dark'
-          : 'light';
-      }
-
-      function syncIcon() {
-        icon.textContent = currentTheme() === 'dark' ? '☀️' : '🌙';
-      }
-
-      btn.addEventListener('click', function () {
-        var next = currentTheme() === 'dark' ? 'light' : 'dark';
-        root.setAttribute('data-theme', next);
-        localStorage.setItem('theme', next);
-        syncIcon();
-      });
-
-      syncIcon();
-    })();
-  </script>
 </body>
 </html>

@@ -1,6 +1,9 @@
-title: Мой блог
-description: Личный блог gmancode
+title: gmancode
+description: Небольшие инструменты с открытым кодом и заметки о том, как они сделаны.
 url: https://gmancode.github.io
 baseurl: ""
+lang: ru
 theme: null
 plugins: []
+exclude:
+  - README.md

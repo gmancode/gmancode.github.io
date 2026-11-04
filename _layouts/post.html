@@ -1,0 +1,14 @@
+---
+layout: default
+---
+<div class="wrap">
+  <article class="article">
+    <a class="back" href="{{ "/" | relative_url }}#blog">← Все записи</a>
+    {% if page.tags.size > 0 %}
+      <ul class="tags">{% for tag in page.tags %}<li>{{ tag }}</li>{% endfor %}</ul>
+    {% endif %}
+    <h1>{{ page.title }}</h1>
+    <div class="post-meta">{{ page.date | date: "%d.%m.%Y" }}</div>
+    {{ content }}
+  </article>
+</div>
