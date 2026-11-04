@@ -1,4 +1,4 @@
-﻿---
+---
 layout: default
 title: Первая запись
 date: 2026-09-16
