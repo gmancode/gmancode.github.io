@@ -21,7 +21,7 @@
   <link rel="alternate" hreflang="en" href="{{ en_url | absolute_url }}">
   <link rel="alternate" hreflang="ru" href="{{ ru_url | absolute_url }}">
   <link rel="icon" type="image/svg+xml" href="{{ "/assets/favicon.svg" | relative_url }}">
-  <link rel="stylesheet" href="{{ "/assets/style.css" | relative_url }}">
+  <link rel="stylesheet" href="{{ "/assets/style.css" | relative_url }}?v={{ site.time | date: "%s" }}">
 </head>
 <body>
   <header class="site-header">
